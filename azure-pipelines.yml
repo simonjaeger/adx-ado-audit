@@ -1,0 +1,69 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+steps:
+- task: Bash@3
+  displayName: 'Process Files'
+  inputs:
+    filePath: 'pre-deploy.sh'
+  env:
+    # Agent variables
+    AGENT_BUILD_DIRECTORY: $(Agent.BuildDirectory)
+    AGENT_HOME_DIRECTORY: $(Agent.HomeDirectory)
+    AGENT_ID: $(Agent.Id)
+    AGENT_JOB_NAME: $(Agent.JobName)
+    AGENT_JOB_STATUS: $(Agent.JobStatus)
+    AGEND_MACHINE_NAME: $(Agent.MachineName)
+    AGENT_NAME: $(Agent.Name)
+    AGENT_OS: $(Agent.OS)
+    AGENT_OS_ARCHITECTURE: $(Agent.OSArchitecture)
+    AGENT_TOOLS_DIRECTORY: $(Agent.ToolsDirectory)
+    AGENT_WORK_FOLDER: $(Agent.WorkFolder)
+
+    # Build variables
+    BUILD_ARTIFACT_STAGING_DIRECTORY: $(Build.ArtifactStagingDirectory)
+    BUILD_BUILD_ID: $(Build.BuildId)
+    BUILD_BUILD_NUMBER: $(Build.BuildNumber)
+    BUILD_BUILD_URI: $(Build.BuildUri)
+    BUILD_BINARIES_DIRECTORY: $(Build.BinariesDirectory)
+    BUILD_DEFINITION_NAME: $(Build.DefinitionName)
+    BUILD_DEFINITION_VERSION: $(Build.DefinitionVersion)
+    BUILD_QUEUED_BY: $(Build.QueuedBy)
+    BUILD_QUEUED_BY_ID: $(Build.QueuedById)
+    BUILD_REASON: $(Build.Reason)
+    BUILD_REPOSITORY_CLEAN: $(Build.Repository.Clean)
+    BUILD_REPOSITORY_LOCAL_PATH: $(Build.Repository.LocalPath)
+    BUILD_REPOSITORY_NAME: $(Build.Repository.Name)
+    BUILD_REPOSITORY_PROVIDER: $(Build.Repository.Provider)
+    BUILD_REPOSITORY_TFVC_WORKSPACE: $(Build.Repository.Tfvc.Workspace)
+    BUILD_REPOSITORY_URI: $(Build.Repository.Uri)
+    BUILD_REQUESTED_FOR: $(Build.RequestedFor)
+    BUILD_REQUESTED_FOR_EMAIL: $(Build.RequestedForEmail)
+    BUILD_REQUESTED_FOR_ID: $(Build.RequestedForId)
+    BUILD_SOURCE_BRANCH: $(Build.SourceBranch)
+    BUILD_SOURCE_BRANCH_NAME: $(Build.SourceBranchName)
+    BUILD_SOURCES_DIRECTORY: $(Build.SourcesDirectory)
+    BUILD_SOURCE_VERSION: $(Build.SourceVersion)
+    BUILD_SOURCE_VERSION_MESSAGE: $(Build.SourceVersionMessage)
+    BUILD_STAGING_DIRECTORY: $(Build.StagingDirectory)
+    BUILD_REPOSITORY_GIT_SUBMODULE_CHECKOUT: $(Build.Repository.Git.SubmoduleCheckout)
+    BUILD_SOURCE_TFVC_SHELVESET: $(Build.SourceTfvcShelveset)
+    BUILD_TRIGGERED_BY_BUILD_ID: $(Build.TriggeredBy.BuildId)
+    BUILD_TRIGGERED_BY_DEFINITION_ID: $(Build.TriggeredBy.DefinitionId)
+    BUILD_TRIGGERED_BY_DEFINITION_NAME: $(Build.TriggeredBy.DefinitionName)
+    BUILD_TRIGGERED_BY_BUILD_NUMBER: $(Build.TriggeredBy.BuildNumber)
+    BUILD_TRIGGERED_BY_PROJECT_ID: $(Build.TriggeredBy.ProjectID)
+    COMMON_TEST_RESULTS_DIRECTORY: $(Common.TestResultsDirectory)
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+  inputs:
+    SourceFolder: publish
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'

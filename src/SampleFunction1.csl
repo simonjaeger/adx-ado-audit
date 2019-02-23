@@ -1,0 +1,2 @@
+.create-or-alter function 
+with (skipvalidation='false') SampleFunction1 () { TimeSeries | take 1 }
