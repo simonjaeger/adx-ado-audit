@@ -175,6 +175,17 @@ The script file [pre-deploy.sh](pre-deploy.sh) uses environment variables availa
 
 After running the script, a new folder named *publish* will be created with the processed CSL files.
 
+# Usage
+
+Once everything is assembled. Records of the ingestion can then be found in the Deployments table in Azure Data Explorer.
+
+```kql
+Deployments 
+| take 100
+```
+
+![Query in Azure Data Explorer](/images/adx.png "Query in Azure Data Explorer")
+
 # Resources
 Learn more about Azure Data Explorer and Azure DevOps here:
 - [Azure Data Explorer](https://docs.microsoft.com/en-us/azure/data-explorer/)
