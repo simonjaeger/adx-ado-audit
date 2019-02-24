@@ -1,6 +1,8 @@
 # Introduction 
 In this repository you will find a way to setup your build and release pipeline in Azure DevOps (Azure Pipelines) to use source control for your Azure Data Explorer functions. Any commands for your Azure Data Explorer database within CSL files can be used, although this reference is tested for functions.
 
+This reference uses the Azure Data Explorer Commands utility task for Azure Pipelines. This must be enabled in your tenant, and can be acquired from the Visual Studio Marketplace: [https://marketplace.visualstudio.com/items?itemName=Azure-Kusto.PublishToADX](https://marketplace.visualstudio.com/items?itemName=Azure-Kusto.PublishToADX).
+
 ## Build
 
 As part of your build pipeline, the script file [pre-deploy.sh](pre-deploy.sh) will run to process the CSL files (located in [/src](/src)) with your Azure Data Explorer commands. The script will capture environment variables from Azure DevOps and create a record of the ingestion
@@ -191,6 +193,7 @@ Learn more about Azure Data Explorer and Azure DevOps here:
 - [Azure Data Explorer](https://docs.microsoft.com/en-us/azure/data-explorer/)
 - [Azure Data Explorer Functions](https://docs.microsoft.com/en-us/azure/kusto/query/functions/)
 - [Azure DevOps](https://azure.microsoft.com/en-us/services/devops/)
+- [Azure Data Explorer Commands - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=Azure-Kusto.PublishToADX)
 
 ### Disclaimer ###
 **THIS CODE IN THIS REPOSITORY IS PROVIDED *AS IS* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
